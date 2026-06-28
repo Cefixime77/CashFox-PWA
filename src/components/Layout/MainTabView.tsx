@@ -32,17 +32,19 @@ export function MainTabView() {
   return (
     <div className="h-full flex flex-col">
       {/* 页面内容 */}
-      <div className="flex-1 overflow-hidden">
-        {activeTab === 'record' && <RecordListView />}
-        {activeTab === 'statistics' && <StatisticsView />}
-        {activeTab === 'budget' && <BudgetView />}
-        {activeTab === 'settings' && (
-          <SettingsView onNavigate={(page) => setSubPage(page as Page)} />
-        )}
+      <div className="flex-1 overflow-hidden" key={activeTab}>
+        <div className="animate-fade-in-up h-full">
+          {activeTab === 'record' && <RecordListView />}
+          {activeTab === 'statistics' && <StatisticsView />}
+          {activeTab === 'budget' && <BudgetView />}
+          {activeTab === 'settings' && (
+            <SettingsView onNavigate={(page) => setSubPage(page as Page)} />
+          )}
+        </div>
       </div>
 
       {/* TabBar */}
-      <nav className="flex-shrink-0 bg-white border-t border-gray-100 pb-safe">
+      <nav className="flex-shrink-0 bg-card-bg border-t pb-safe" style={{ borderColor: 'var(--cf-border)' }}>
         <div className="flex">
           {TABS.map(tab => {
             const isActive = activeTab === tab.key;

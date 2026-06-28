@@ -1,8 +1,10 @@
 // ============================================
 // 记录详情 — 对应 Swift ExpenseDetailView
 // ============================================
+import { useState } from 'react';
 import { useLiveQuery } from 'dexie-react-hooks';
 import { db } from '../../db/database';
+import { useToast } from '../Common/Toast';
 import { CategoryIcon } from '../Common/CategoryIcon';
 import { smartDateDisplay, timeDisplay, weekdayDisplay } from '../../utils/date';
 import { X, Pencil, Trash2, FileText, Calendar, AlignLeft, RefreshCw } from 'lucide-react';
@@ -14,6 +16,8 @@ interface Props {
 }
 
 export function ExpenseDetail({ recordId, onClose, onDeleted }: Props) {
+  const [closing, setClosing] = useState(false);
+  const toast = useToast();
   const record = useLiveQuery(() => db.expenseRecords.get(recordId), [recordId]);
   const category = useLiveQuery(
     () => record?.categoryId ? db.categories.get(record.categoryId) : null,
@@ -25,21 +29,30 @@ export function ExpenseDetail({ recordId, onClose, onDeleted }: Props) {
   const isExpense = record.type === 'expense';
   const sign = isExpense ? '-' : '+';
 
+  const handleClose = () => { setClosing(true); setTimeout(onClose, 250); };
+
   const handleDelete = async () => {
     if (confirm('确定要删除这条记录吗？删除后无法恢复。')) {
       await db.expenseRecords.delete(recordId);
-      onDeleted();
+      toast.show('success', '已删除');
+      setClosing(true);
+      setTimeout(onDeleted, 250);
     }
   };
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/30 animate-fade-in-up" onClick={onClose}>
+    <div
+      className={`fixed inset-0 z-50 ${closing ? 'animate-backdrop-out' : 'animate-backdrop-in'}`}
+      style={{ backgroundColor: closing ? 'transparent' : 'rgba(0,0,0,0.3)' }}
+      onClick={handleClose}
+    >
       <div
-        className="absolute bottom-0 left-0 right-0 bg-app-bg rounded-t-[24px] max-h-[90vh] overflow-y-auto animate-slide-up"
+        className={`absolute bottom-0 left-0 right-0 rounded-t-[24px] max-h-[90vh] overflow-y-auto ${closing ? 'animate-sheet-down' : 'animate-sheet-up'}`}
+        style={{ backgroundColor: 'var(--cf-card)' }}
         onClick={e => e.stopPropagation()}
       >
         <div className="flex items-center justify-between px-5 pt-4 pb-2">
-          <button onClick={onClose} className="w-10 h-10 flex items-center justify-center">
+          <button onClick={handleClose} className="w-10 h-10 flex items-center justify-center">
             <X size={24} className="text-text-secondary" />
           </button>
           <h2 className="text-[20px] font-semibold">记录详情</h2>

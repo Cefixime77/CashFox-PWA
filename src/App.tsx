@@ -3,12 +3,10 @@
 // ============================================
 import { useEffect, Component, type ReactNode } from 'react';
 import { AppProvider, useAppContext } from './contexts/AppContext';
+import { ToastProvider } from './components/Common/Toast';
 import { OnboardingView } from './components/Layout/OnboardingView';
 import { MainTabView } from './components/Layout/MainTabView';
 
-// ============================================
-// 错误边界 — 捕获渲染崩溃，避免永久白屏
-// ============================================
 class ErrorBoundary extends Component<{ children: ReactNode }, { err: Error | null }> {
   state = { err: null as Error | null };
   static getDerivedStateFromError(err: Error) { return { err }; }
@@ -43,19 +41,13 @@ class ErrorBoundary extends Component<{ children: ReactNode }, { err: Error | nu
   }
 }
 
-// ============================================
-// 应用内容
-// ============================================
 function AppContent() {
   const { ready, preference } = useAppContext();
 
-  // 应用完全就绪后，等浏览器绘制一帧再隐藏加载屏
   useEffect(() => {
     if (ready) {
-      // 双重 requestAnimationFrame = 等待浏览器完成绘制
       requestAnimationFrame(() => {
         requestAnimationFrame(() => {
-          // 再加 100ms 保险，确保内容已上屏
           setTimeout(() => {
             const fn = (window as any).__cashfoxReady;
             if (fn) fn();
@@ -77,7 +69,9 @@ function AppContent() {
 export default function App() {
   return (
     <AppProvider>
-      <AppContent />
+      <ToastProvider>
+        <AppContent />
+      </ToastProvider>
     </AppProvider>
   );
 }

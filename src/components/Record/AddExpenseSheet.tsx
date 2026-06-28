@@ -1,11 +1,13 @@
 // ============================================
 // 添加记录 Sheet — 对应 Swift AddExpenseSheet
 // ============================================
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useLiveQuery } from 'dexie-react-hooks';
 import { db } from '../../db/database';
 import type { Category, ExpenseType } from '../../db/models';
 import { useAddExpenseViewModel } from '../../hooks/useAddExpenseViewModel';
+import { useToast } from '../Common/Toast';
+import { CelebrateOverlay } from '../Common/CelebrateOverlay';
 import { NumberPad } from './NumberPad';
 import { CategoryGrid } from './CategoryGrid';
 import { X, Calendar } from 'lucide-react';
@@ -18,6 +20,9 @@ interface Props {
 
 export function AddExpenseSheet({ recordId, onClose, onSaved }: Props) {
   const vm = useAddExpenseViewModel();
+  const toast = useToast();
+  const [closing, setClosing] = useState(false);
+  const [celebrate, setCelebrate] = useState(false);
   const allCategories = useLiveQuery(() => db.categories.orderBy('sortOrder').toArray(), []) ?? [];
 
   const currentCategories = allCategories.filter(c => c.type === vm.selectedType);
@@ -39,23 +44,40 @@ export function AddExpenseSheet({ recordId, onClose, onSaved }: Props) {
   const handleSave = async () => {
     const record = await vm.save();
     if (record) {
-      vm.reset();
-      onSaved();
+      // 庆祝特效
+      setCelebrate(true);
+      toast.show('success', recordId ? '修改已保存' : '记账成功！');
+      setTimeout(() => {
+        vm.reset();
+        onSaved();
+      }, 300);
     }
+  };
+
+  const handleClose = () => {
+    setClosing(true);
+    setTimeout(onClose, 250);
   };
 
   const isExpense = vm.selectedType === 'expense';
   const sign = isExpense ? '-' : '+';
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/30 animate-fade-in-up" onClick={onClose}>
+    <>
+      <CelebrateOverlay active={celebrate} />
       <div
-        className="absolute bottom-0 left-0 right-0 bg-app-bg rounded-t-[24px] max-h-[95vh] overflow-y-auto animate-slide-up"
+        className={`fixed inset-0 z-50 ${closing ? 'animate-backdrop-out' : 'animate-backdrop-in'}`}
+        style={{ backgroundColor: closing ? 'transparent' : 'rgba(0,0,0,0.3)' }}
+        onClick={handleClose}
+      >
+      <div
+        className={`absolute bottom-0 left-0 right-0 bg-app-bg rounded-t-[24px] max-h-[95vh] overflow-y-auto ${closing ? 'animate-sheet-down' : 'animate-sheet-up'}`}
+        style={{ backgroundColor: 'var(--cf-card)' }}
         onClick={e => e.stopPropagation()}
       >
         {/* Header */}
         <div className="flex items-center justify-between px-5 pt-4 pb-2">
-          <button onClick={onClose} className="w-10 h-10 flex items-center justify-center">
+          <button onClick={handleClose} className="w-10 h-10 flex items-center justify-center">
             <X size={24} className="text-text-secondary" />
           </button>
           <h2 className="text-[20px] font-semibold text-text-primary">
@@ -196,6 +218,7 @@ export function AddExpenseSheet({ recordId, onClose, onSaved }: Props) {
           </button>
         </div>
       </div>
-    </div>
+      </div>
+    </>
   );
 }

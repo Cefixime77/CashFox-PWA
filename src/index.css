@@ -1,26 +1,91 @@
 @import "tailwindcss";
 
+/* ═══════════════════════════════════════════
+   CSS 变量驱动的主题系统
+   亮色默认 → .dark class 切换暗色
+   Tailwind v4 @theme 通过 var() 引用这些变量
+   ═══════════════════════════════════════════ */
+
+:root {
+  /* 主色调 */
+  --cf-primary-light: #A8D8EA;
+  --cf-primary: #7EC8E3;
+  --cf-primary-dark: #4A90B8;
+
+  /* 语义色 */
+  --cf-expense: #FF6B6B;
+  --cf-income: #51CF66;
+  --cf-warning: #FFA94D;
+
+  /* 表面 */
+  --cf-bg: #F5F9FC;
+  --cf-card: #FFFFFF;
+  --cf-input: #F3F4F6;
+
+  /* 文字 */
+  --cf-text: #2C3E50;
+  --cf-text-secondary: #7F8C8D;
+  --cf-text-tertiary: #BDC3C7;
+
+  /* 边框/分割线 */
+  --cf-border: #F3F4F6;
+
+  /* 阴影（亮色模式偏轻） */
+  --cf-shadow-card: 0 2px 8px rgba(0,0,0,0.06);
+  --cf-shadow-elevated: 0 4px 16px rgba(0,0,0,0.10);
+  --cf-shadow-button: 0 4px 12px rgba(0,0,0,0.12);
+  --cf-shadow-fox: 0 0 20px rgba(168,216,234,0.4);
+
+  /* 遮罩 */
+  --cf-overlay: rgba(0,0,0,0.3);
+}
+
+/* ═══ 暗色模式 ═══ */
+.dark {
+  --cf-primary-light: #2a3a44;
+  --cf-primary: #4A90B8;
+  --cf-primary-dark: #7EC8E3;
+
+  --cf-expense: #FF8080;
+  --cf-income: #66DD7A;
+  --cf-warning: #FFB366;
+
+  --cf-bg: #1a1d23;
+  --cf-card: #252830;
+  --cf-input: #2d3039;
+
+  --cf-text: #e0e4ea;
+  --cf-text-secondary: #8b919a;
+  --cf-text-tertiary: #565c63;
+
+  --cf-border: #2d3039;
+
+  --cf-shadow-card: 0 2px 8px rgba(0,0,0,0.25);
+  --cf-shadow-elevated: 0 4px 16px rgba(0,0,0,0.35);
+  --cf-shadow-button: 0 4px 12px rgba(0,0,0,0.30);
+  --cf-shadow-fox: 0 0 20px rgba(74,144,184,0.25);
+
+  --cf-overlay: rgba(0,0,0,0.55);
+}
+
+/* ═══ Tailwind v4 @theme — 所有 token 引用 CSS 变量 ═══ */
 @theme {
-  /* === 主色调（浅蓝系）=== */
-  --color-primary-light: #A8D8EA;
-  --color-primary: #7EC8E3;
-  --color-primary-dark: #4A90B8;
+  --color-primary-light: var(--cf-primary-light);
+  --color-primary: var(--cf-primary);
+  --color-primary-dark: var(--cf-primary-dark);
 
-  /* === 语义色 === */
-  --color-expense: #FF6B6B;
-  --color-income: #51CF66;
-  --color-warning: #FFA94D;
+  --color-expense: var(--cf-expense);
+  --color-income: var(--cf-income);
+  --color-warning: var(--cf-warning);
 
-  /* === 背景与卡片 === */
-  --color-app-bg: #F5F9FC;
-  --color-card-bg: #FFFFFF;
+  --color-app-bg: var(--cf-bg);
+  --color-card-bg: var(--cf-card);
 
-  /* === 文字色 === */
-  --color-text-primary: #2C3E50;
-  --color-text-secondary: #7F8C8D;
-  --color-text-tertiary: #BDC3C7;
+  --color-text-primary: var(--cf-text);
+  --color-text-secondary: var(--cf-text-secondary);
+  --color-text-tertiary: var(--cf-text-tertiary);
 
-  /* === 11 种柔和分类色 === */
+  /* 静态分类色（亮暗通用） */
   --color-cat-pink: #FFB3BA;
   --color-cat-orange: #FFD4A3;
   --color-cat-yellow: #FFE9A3;
@@ -33,24 +98,21 @@
   --color-cat-indigo: #C4C9F0;
   --color-cat-rose: #F0C4D8;
 
-  /* === 字体 === */
-  --font-rounded: 'SF Pro Rounded', 'Nunito', system-ui, -apple-system, sans-serif;
+  /* 字体 */
+  --font-rounded: 'Nunito', 'SF Pro Rounded', system-ui, -apple-system, sans-serif;
 
-  /* === 圆角 === */
+  /* 圆角 */
   --radius-sm: 8px;
   --radius-btn: 12px;
   --radius-card: 16px;
   --radius-lg: 20px;
   --radius-pill: 9999px;
-
-  /* === 阴影 === */
-  --shadow-card: 0 2px 8px rgba(0,0,0,0.06);
-  --shadow-elevated: 0 4px 16px rgba(0,0,0,0.10);
-  --shadow-button: 0 4px 12px rgba(0,0,0,0.12);
-  --shadow-fox: 0 0 20px rgba(168,216,234,0.4);
 }
 
-/* === 全局样式 === */
+/* ═══════════════════════════════════════════
+   全局样式
+   ═══════════════════════════════════════════ */
+
 * {
   -webkit-tap-highlight-color: transparent;
   box-sizing: border-box;
@@ -58,7 +120,6 @@
 
 html, body, #root {
   height: 100%;
-  /* iOS 独立模式安全高度 */
   min-height: 100dvh;
   width: 100%;
   margin: 0;
@@ -67,18 +128,17 @@ html, body, #root {
 
 body {
   font-family: var(--font-rounded);
-  background-color: var(--color-app-bg);
-  color: var(--color-text-primary);
+  background-color: var(--cf-bg);
+  color: var(--cf-text);
   overscroll-behavior: none;
   -webkit-font-smoothing: antialiased;
   user-select: none;
   -webkit-user-select: none;
-  /* 竖屏最大宽度约束（模拟手机） */
   max-width: 480px;
   margin: 0 auto;
 }
 
-/* iOS 安全区域辅助 */
+/* iOS 安全区域 */
 .pt-safe { padding-top: env(safe-area-inset-top); }
 .pb-safe { padding-bottom: env(safe-area-inset-bottom); }
 
@@ -86,25 +146,138 @@ body {
 .no-scrollbar::-webkit-scrollbar { display: none; }
 .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
-/* === 关键帧动画 === */
-@keyframes bounce-slow {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-5px); }
+/* 自定义选择文本色 */
+::selection {
+  background: var(--cf-primary);
+  color: #fff;
 }
+
+/* ═══════════════════════════════════════════
+   动画系统
+   ═══════════════════════════════════════════ */
+
+/* --- 基础入场动画 --- */
 @keyframes fade-in-up {
   from { opacity: 0; transform: translateY(12px); }
   to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fade-out-down {
+  from { opacity: 1; transform: translateY(0); }
+  to { opacity: 0; transform: translateY(12px); }
 }
 @keyframes scale-in {
   from { opacity: 0; transform: scale(0.92); }
   to { opacity: 1; transform: scale(1); }
 }
+@keyframes scale-out {
+  from { opacity: 1; transform: scale(1); }
+  to { opacity: 0; transform: scale(0.92); }
+}
 @keyframes slide-up {
   from { transform: translateY(100%); }
   to { transform: translateY(0); }
 }
+@keyframes slide-down {
+  from { transform: translateY(0); }
+  to { transform: translateY(100%); }
+}
+@keyframes bounce-slow {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
 
+/* --- 基础入场动画类 --- */
+.animate-fade-in-up  { animation: fade-in-up 0.35s ease-out both; }
+.animate-fade-out-down { animation: fade-out-down 0.25s ease-in both; }
+.animate-scale-in    { animation: scale-in 0.25s ease-out both; }
+.animate-scale-out   { animation: scale-out 0.2s ease-in both; }
+.animate-slide-up    { animation: slide-up 0.3s ease-out both; }
+.animate-slide-down  { animation: slide-down 0.25s ease-in both; }
 .animate-bounce-slow { animation: bounce-slow 1.5s ease-in-out infinite; }
-.animate-fade-in-up { animation: fade-in-up 0.35s ease-out; }
-.animate-scale-in { animation: scale-in 0.25s ease-out; }
-.animate-slide-up { animation: slide-up 0.3s ease-out; }
+
+/* --- Sheet 弹窗动画（含退场） --- */
+.animate-sheet-up {
+  animation: slide-up 0.3s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.animate-sheet-down {
+  animation: slide-down 0.25s cubic-bezier(0.5, 0, 0.75, 0) both;
+}
+.animate-backdrop-in {
+  animation: fade-in 0.25s ease-out both;
+}
+.animate-backdrop-out {
+  animation: fade-out 0.2s ease-in both;
+}
+@keyframes fade-in {
+  from { opacity: 0; } to { opacity: 1; }
+}
+@keyframes fade-out {
+  from { opacity: 1; } to { opacity: 0; }
+}
+
+/* --- 记账庆祝特效 --- */
+@keyframes confetti-burst {
+  0%   { transform: translate(0, 0) scale(1); opacity: 1; }
+  100% { transform: translate(var(--cx), var(--cy)) scale(0); opacity: 0; }
+}
+.confetti-particle {
+  position: fixed;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  z-index: 9999;
+  animation: confetti-burst 0.8s ease-out both;
+  pointer-events: none;
+}
+
+/* --- 列表项入场/退场 --- */
+@keyframes list-item-enter {
+  from { opacity: 0; transform: translateY(-8px); max-height: 0; }
+  to { opacity: 1; transform: translateY(0); max-height: 80px; }
+}
+.animate-list-enter {
+  animation: list-item-enter 0.3s ease-out both;
+}
+
+/* --- 数字键盘涟漪 --- */
+.ripple {
+  position: relative;
+  overflow: hidden;
+}
+.ripple::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.1);
+  border-radius: inherit;
+  opacity: 0;
+  transform: scale(0.5);
+}
+.ripple:active::after {
+  animation: ripple-effect 0.4s ease-out;
+}
+@keyframes ripple-effect {
+  to { opacity: 0; transform: scale(2); }
+}
+
+/* --- 气泡弹出 --- */
+@keyframes bubble-pop {
+  0%   { opacity: 0; transform: scale(0.8) translateY(4px); }
+  60%  { transform: scale(1.05) translateY(-2px); }
+  100% { opacity: 1; transform: scale(1) translateY(0); }
+}
+.animate-bubble-pop {
+  animation: bubble-pop 0.3s ease-out both;
+}
+
+/* ═══════════════════════════════════════════
+   无障碍：减少动画
+   ═══════════════════════════════════════════ */
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
