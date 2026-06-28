@@ -20,7 +20,7 @@ export default defineConfig({
         description: '简洁可爱的记账助手 - 让每一笔支出都变得轻松愉快',
         theme_color: '#A8D8EA',
         background_color: '#F5F9FC',
-        display: 'standalone',
+        display: 'minimal-ui',
         orientation: 'portrait',
         start_url: '/CashFox-PWA/',
         scope: '/CashFox-PWA/',
