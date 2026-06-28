@@ -47,11 +47,11 @@ export function ExpenseDetail({ recordId, onClose, onDeleted }: Props) {
       onClick={handleClose}
     >
       <div
-        className={`absolute bottom-0 left-0 right-0 rounded-t-[24px] max-h-[90vh] overflow-y-auto ${closing ? 'animate-sheet-down' : 'animate-sheet-up'}`}
+        className={`absolute top-[8%] left-0 right-0 bottom-0 rounded-t-[24px] overflow-y-auto ${closing ? 'animate-sheet-down' : 'animate-sheet-up'}`}
         style={{ backgroundColor: 'var(--cf-card)' }}
         onClick={e => e.stopPropagation()}
       >
-        <div className="flex items-center justify-between px-5 pt-safe pt-4 pb-2">
+        <div className="flex items-center justify-between px-5 pt-4 pb-2 sticky top-0 z-10" style={{ backgroundColor: 'var(--cf-card)' }}>
           <button onClick={handleClose} className="w-10 h-10 flex items-center justify-center">
             <X size={24} className="text-text-secondary" />
           </button>

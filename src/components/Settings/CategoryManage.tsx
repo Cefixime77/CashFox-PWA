@@ -108,9 +108,9 @@ function AddCategorySheet({ type, onClose, onAdded }: { type: ExpenseType; onClo
 
   return (
     <div className="fixed inset-0 z-50 bg-black/30 animate-fade-in-up" onClick={onClose}>
-      <div className={`absolute bottom-0 left-0 right-0 ${bgColor} rounded-t-[24px] max-h-[90vh] overflow-y-auto animate-slide-up`}
+      <div className={`absolute top-[8%] left-0 right-0 bottom-0 ${bgColor} rounded-t-[24px] overflow-y-auto animate-slide-up`}
         onClick={e => e.stopPropagation()}>
-        <div className="flex items-center justify-between px-5 pt-safe pt-4 pb-2">
+        <div className="flex items-center justify-between px-5 pt-4 pb-2 sticky top-0 z-10 ${bgColor}">
           <button onClick={onClose} className="text-text-secondary">取消</button>
           <h2 className="text-[20px] font-semibold">{type === 'expense' ? '添加支出分类' : '添加收入分类'}</h2>
           <button onClick={handleAdd} disabled={!name} className={`font-semibold ${name ? 'text-primary' : 'text-text-tertiary'}`}>添加</button>
