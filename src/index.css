@@ -118,6 +118,10 @@
   box-sizing: border-box;
 }
 
+html {
+  background-color: var(--cf-bg);
+}
+
 html, body, #root {
   height: 100%;
   min-height: 100dvh;

@@ -51,7 +51,7 @@ export function ExpenseDetail({ recordId, onClose, onDeleted }: Props) {
         style={{ backgroundColor: 'var(--cf-card)' }}
         onClick={e => e.stopPropagation()}
       >
-        <div className="flex items-center justify-between px-5 pt-4 pb-2">
+        <div className="flex items-center justify-between px-5 pt-safe pt-4 pb-2">
           <button onClick={handleClose} className="w-10 h-10 flex items-center justify-center">
             <X size={24} className="text-text-secondary" />
           </button>

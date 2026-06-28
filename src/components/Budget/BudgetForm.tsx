@@ -33,7 +33,7 @@ export function BudgetForm({ categories, onSave, onClose }: BudgetFormProps) {
     <div className="fixed inset-0 z-50 bg-black/30 animate-fade-in-up" onClick={onClose}>
       <div className="absolute bottom-0 left-0 right-0 bg-app-bg rounded-t-[24px] max-h-[90vh] overflow-y-auto animate-slide-up"
         onClick={e => e.stopPropagation()}>
-        <div className="flex items-center justify-between px-5 pt-4 pb-2">
+        <div className="flex items-center justify-between px-5 pt-safe pt-4 pb-2">
           <button onClick={onClose}><X size={24} className="text-text-secondary" /></button>
           <h2 className="text-[20px] font-semibold">新建预算</h2>
           <button onClick={handleSave} disabled={!isValid}
@@ -121,7 +121,7 @@ export function SavingsGoalForm({ onSave, onClose }: SavingsGoalFormProps) {
     <div className="fixed inset-0 z-50 bg-black/30 animate-fade-in-up" onClick={onClose}>
       <div className="absolute bottom-0 left-0 right-0 bg-app-bg rounded-t-[24px] max-h-[90vh] overflow-y-auto animate-slide-up"
         onClick={e => e.stopPropagation()}>
-        <div className="flex items-center justify-between px-5 pt-4 pb-2">
+        <div className="flex items-center justify-between px-5 pt-safe pt-4 pb-2">
           <button onClick={onClose}><X size={24} className="text-text-secondary" /></button>
           <h2 className="text-[20px] font-semibold">新建储蓄目标</h2>
           <button onClick={handleSave} disabled={!isValid}

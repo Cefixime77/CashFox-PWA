@@ -76,7 +76,7 @@ export function AddExpenseSheet({ recordId, onClose, onSaved }: Props) {
         onClick={e => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="flex items-center justify-between px-5 pt-4 pb-2">
+        <div className="flex items-center justify-between px-5 pt-safe pt-4 pb-2">
           <button onClick={handleClose} className="w-10 h-10 flex items-center justify-center">
             <X size={24} className="text-text-secondary" />
           </button>
