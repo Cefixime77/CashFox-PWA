@@ -1,0 +1,108 @@
+@import "tailwindcss";
+
+@theme {
+  /* === 主色调（浅蓝系）=== */
+  --color-primary-light: #A8D8EA;
+  --color-primary: #7EC8E3;
+  --color-primary-dark: #4A90B8;
+
+  /* === 语义色 === */
+  --color-expense: #FF6B6B;
+  --color-income: #51CF66;
+  --color-warning: #FFA94D;
+
+  /* === 背景与卡片 === */
+  --color-app-bg: #F5F9FC;
+  --color-card-bg: #FFFFFF;
+
+  /* === 文字色 === */
+  --color-text-primary: #2C3E50;
+  --color-text-secondary: #7F8C8D;
+  --color-text-tertiary: #BDC3C7;
+
+  /* === 11 种柔和分类色 === */
+  --color-cat-pink: #FFB3BA;
+  --color-cat-orange: #FFD4A3;
+  --color-cat-yellow: #FFE9A3;
+  --color-cat-green: #B9F5D8;
+  --color-cat-purple: #D4C5F0;
+  --color-cat-teal: #B4E7E8;
+  --color-cat-blue: #B4D4F0;
+  --color-cat-brown: #E8D5C4;
+  --color-cat-gray: #D5D8DC;
+  --color-cat-indigo: #C4C9F0;
+  --color-cat-rose: #F0C4D8;
+
+  /* === 字体 === */
+  --font-rounded: 'SF Pro Rounded', 'Nunito', system-ui, -apple-system, sans-serif;
+
+  /* === 圆角 === */
+  --radius-sm: 8px;
+  --radius-btn: 12px;
+  --radius-card: 16px;
+  --radius-lg: 20px;
+  --radius-pill: 9999px;
+
+  /* === 阴影 === */
+  --shadow-card: 0 2px 8px rgba(0,0,0,0.06);
+  --shadow-elevated: 0 4px 16px rgba(0,0,0,0.10);
+  --shadow-button: 0 4px 12px rgba(0,0,0,0.12);
+  --shadow-fox: 0 0 20px rgba(168,216,234,0.4);
+}
+
+/* === 全局样式 === */
+* {
+  -webkit-tap-highlight-color: transparent;
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  overflow: hidden;
+}
+
+body {
+  font-family: var(--font-rounded);
+  background-color: var(--color-app-bg);
+  color: var(--color-text-primary);
+  overscroll-behavior: none;
+  -webkit-font-smoothing: antialiased;
+  user-select: none;
+  -webkit-user-select: none;
+  /* 竖屏最大宽度约束（模拟手机） */
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+/* iOS 安全区域辅助 */
+.pt-safe { padding-top: env(safe-area-inset-top); }
+.pb-safe { padding-bottom: env(safe-area-inset-bottom); }
+
+/* 隐藏滚动条 */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* === 关键帧动画 === */
+@keyframes bounce-slow {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes scale-in {
+  from { opacity: 0; transform: scale(0.92); }
+  to { opacity: 1; transform: scale(1); }
+}
+@keyframes slide-up {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
+
+.animate-bounce-slow { animation: bounce-slow 1.5s ease-in-out infinite; }
+.animate-fade-in-up { animation: fade-in-up 0.35s ease-out; }
+.animate-scale-in { animation: scale-in 0.25s ease-out; }
+.animate-slide-up { animation: slide-up 0.3s ease-out; }
