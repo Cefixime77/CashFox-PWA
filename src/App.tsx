@@ -9,27 +9,25 @@ import { MainTabView } from './components/Layout/MainTabView';
 function AppContent() {
   const { ready, preference } = useAppContext();
 
-  // ⚡ React 挂载完成后隐藏 HTML 加载屏
+  // ⚡ 应用完全就绪后关闭 HTML 加载屏
+  //    关键：只在 ready=true 且内容渲染后才隐藏
+  //    这样中间不存在任何空白间隙
   useEffect(() => {
-    const loader = document.getElementById('app-loader');
-    if (loader) {
-      loader.classList.add('hidden');
-      // 动画结束后移除 DOM
-      setTimeout(() => loader.remove(), 350);
+    if (ready) {
+      // 延迟一帧确保 DOM 已经渲染
+      requestAnimationFrame(() => {
+        const fn = (window as unknown as Record<string, (() => void) | undefined>).__cashfoxReady;
+        if (fn) fn();
+      });
     }
-  }, []);
+  }, [ready]);
 
+  // 数据库未初始化 → React 内部加载状态（用户看不到，因为 HTML 加载屏还在）
   if (!ready) {
-    return (
-      <div className="h-full flex items-center justify-center bg-app-bg">
-        <div className="flex flex-col items-center gap-4 animate-bounce-slow">
-          <span className="text-[60px]">🦊</span>
-          <p className="text-[16px] text-text-secondary">小财正在准备...</p>
-        </div>
-      </div>
-    );
+    return null;
   }
 
+  // 引导页 / 主页
   if (!preference?.hasCompletedOnboarding) {
     return <OnboardingView />;
   }
