@@ -4,9 +4,7 @@
 import { useStatisticsViewModel, type StatisticsRange } from '../../hooks/useStatisticsViewModel';
 import { useFoxStateMachine } from '../../hooks/useFoxStateMachine';
 import { SummaryCards } from './SummaryCards';
-import { PieChartView } from './PieChartView';
-import { BarChartView } from './BarChartView';
-import { HeatmapView } from './HeatmapView';
+import { LazyPieChart, LazyBarChart, LazyHeatmap } from './LazyCharts';
 import { FoxMascot } from '../Fox/FoxMascot';
 
 const RANGES: { key: StatisticsRange; label: string }[] = [
@@ -54,21 +52,21 @@ export function StatisticsView() {
         {/* 饼图 */}
         {vm.categoryBreakdown.length > 0 && (
           <div className="mt-4">
-            <PieChartView breakdown={vm.categoryBreakdown} />
+            <LazyPieChart breakdown={vm.categoryBreakdown} />
           </div>
         )}
 
         {/* 柱状图 */}
         {vm.dailyBreakdown.length > 0 && (
           <div className="mt-4">
-            <BarChartView breakdown={vm.dailyBreakdown} />
+            <LazyBarChart breakdown={vm.dailyBreakdown} />
           </div>
         )}
 
         {/* 热力图 */}
         {vm.heatmapData.length > 0 && (
           <div className="mt-4">
-            <HeatmapView data={vm.heatmapData} />
+            <LazyHeatmap data={vm.heatmapData} />
           </div>
         )}
       </div>

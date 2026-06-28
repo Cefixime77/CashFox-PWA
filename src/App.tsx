@@ -1,14 +1,23 @@
 // ============================================
 // CashFox PWA — App 入口
-// 对应 Swift ContentView + CashFoxApp
 // ============================================
-import { useState } from 'react';
+import { useEffect } from 'react';
 import { AppProvider, useAppContext } from './contexts/AppContext';
 import { OnboardingView } from './components/Layout/OnboardingView';
 import { MainTabView } from './components/Layout/MainTabView';
 
 function AppContent() {
   const { ready, preference } = useAppContext();
+
+  // ⚡ React 挂载完成后隐藏 HTML 加载屏
+  useEffect(() => {
+    const loader = document.getElementById('app-loader');
+    if (loader) {
+      loader.classList.add('hidden');
+      // 动画结束后移除 DOM
+      setTimeout(() => loader.remove(), 350);
+    }
+  }, []);
 
   if (!ready) {
     return (
