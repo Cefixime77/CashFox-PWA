@@ -48,7 +48,7 @@ export function CategoryManage({ onBack }: Props) {
             <button onClick={() => { setAddType('expense'); setShowAdd(true); }}
               className="text-primary"><Plus size={20} /></button>
           </div>
-          <div className="bg-white rounded-card shadow-card overflow-hidden">
+          <div className="bg-card-bg rounded-card shadow-card overflow-hidden">
             {expenseCats.map(cat => (
               <CatRow key={cat.id} cat={cat} onDelete={() => handleDelete(cat.id)} />
             ))}
@@ -62,7 +62,7 @@ export function CategoryManage({ onBack }: Props) {
             <button onClick={() => { setAddType('income'); setShowAdd(true); }}
               className="text-income"><Plus size={20} /></button>
           </div>
-          <div className="bg-white rounded-card shadow-card overflow-hidden">
+          <div className="bg-card-bg rounded-card shadow-card overflow-hidden">
             {incomeCats.map(cat => (
               <CatRow key={cat.id} cat={cat} onDelete={() => handleDelete(cat.id)} />
             ))}
@@ -79,10 +79,10 @@ export function CategoryManage({ onBack }: Props) {
 
 function CatRow({ cat, onDelete }: { cat: Category; onDelete: () => void }) {
   return (
-    <div className="flex items-center gap-3 px-4 py-3 border-b border-gray-50 last:border-0">
+    <div className="flex items-center gap-3 px-4 py-3 border-b border-[var(--cf-border)] last:border-0">
       <CategoryIcon icon={cat.icon} color={cat.colorHex} size={36} />
       <span className="flex-1 text-[16px] text-text-primary">{cat.name}</span>
-      {cat.isPreset && <span className="text-[10px] text-text-tertiary bg-gray-100 px-1.5 py-0.5 rounded">预设</span>}
+      {cat.isPreset && <span className="text-[10px] text-text-tertiary bg-[var(--cf-input)] px-1.5 py-0.5 rounded">预设</span>}
       {!cat.isPreset && (
         <button onClick={onDelete}><Trash2 size={16} className="text-text-tertiary hover:text-expense" /></button>
       )}
@@ -104,7 +104,7 @@ function AddCategorySheet({ type, onClose, onAdded }: { type: ExpenseType; onClo
     onAdded();
   };
 
-  const bgColor = type === 'expense' ? 'bg-white' : 'bg-green-50';
+  const bgColor = type === 'expense' ? 'bg-card-bg' : 'bg-income/10';
 
   return (
     <div className="fixed inset-0 z-50 bg-black/30 animate-fade-in-up" onClick={onClose}>
@@ -117,7 +117,7 @@ function AddCategorySheet({ type, onClose, onAdded }: { type: ExpenseType; onClo
         </div>
         <div className="px-5 pb-8 flex flex-col gap-4">
           <input type="text" placeholder="分类名称" value={name} onChange={e => setName(e.target.value)} autoFocus
-            className="w-full px-4 py-3 bg-white rounded-btn text-[16px] outline-none shadow-card" />
+            className="w-full px-4 py-3 bg-card-bg rounded-btn text-[16px] outline-none shadow-card" />
           <div className="grid grid-cols-5 gap-3">
             {ICONS.map(ic => (
               <button key={ic} onClick={() => setIcon(ic)}

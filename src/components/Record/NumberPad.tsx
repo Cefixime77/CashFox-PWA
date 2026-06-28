@@ -16,7 +16,7 @@ export function NumberPad({ amountString, onAppendDigit, onAppendDecimal, onDele
     <button
       key={d}
       onClick={() => onAppendDigit(d)}
-      className="h-14 bg-white text-text-primary text-[22px] font-semibold rounded active:bg-gray-100 transition-colors"
+      className="h-14 bg-card-bg text-text-primary text-[22px] font-semibold rounded active:bg-[var(--cf-input)] transition-colors"
     >
       {d}
     </button>
@@ -36,7 +36,7 @@ export function NumberPad({ amountString, onAppendDigit, onAppendDecimal, onDele
       {/* Row 1 */}
       {['1','2','3'].map(digit)}
       <button onClick={onDelete}
-        className="h-14 bg-gray-100 text-text-secondary rounded active:bg-gray-200 transition-colors flex items-center justify-center"
+        className="h-14 bg-[var(--cf-input)] text-text-secondary rounded active:bg-[var(--cf-input)] transition-colors flex items-center justify-center"
       >
         <Delete size={22} />
       </button>
@@ -49,16 +49,16 @@ export function NumberPad({ amountString, onAppendDigit, onAppendDecimal, onDele
       {['7','8','9'].map(digit)}
       <button onClick={onAppendDecimal}
         disabled={amountString.includes('.')}
-        className="h-14 bg-white text-text-primary text-[22px] font-semibold rounded active:bg-gray-100 disabled:opacity-30 transition-colors"
+        className="h-14 bg-card-bg text-text-primary text-[22px] font-semibold rounded active:bg-[var(--cf-input)] disabled:opacity-30 transition-colors"
       >.</button>
 
       {/* Row 4 */}
       {digit('0')}
       <button onClick={() => onAppendDigit('00')}
-        className="h-14 bg-white text-text-primary text-[18px] font-semibold rounded active:bg-gray-100 transition-colors"
+        className="h-14 bg-card-bg text-text-primary text-[18px] font-semibold rounded active:bg-[var(--cf-input)] transition-colors"
       >00</button>
       <button onClick={() => onAppendDigit('')}
-        className="h-14 bg-gray-100 text-text-secondary text-[18px] font-semibold rounded active:bg-gray-200 col-span-2 transition-colors"
+        className="h-14 bg-[var(--cf-input)] text-text-secondary text-[18px] font-semibold rounded active:bg-[var(--cf-input)] col-span-2 transition-colors"
       >清空</button>
     </div>
   );

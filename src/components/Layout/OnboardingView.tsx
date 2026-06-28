@@ -62,7 +62,7 @@ export function OnboardingView() {
               type="text"
               value={foxName}
               onChange={e => setFoxName(e.target.value)}
-              className="w-full px-5 py-3 bg-white rounded-btn text-[20px] font-semibold text-center outline-none shadow-card"
+              className="w-full px-5 py-3 bg-card-bg rounded-btn text-[20px] font-semibold text-center outline-none shadow-card"
               placeholder="小财"
               autoFocus
             />

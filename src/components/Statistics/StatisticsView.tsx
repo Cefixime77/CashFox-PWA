@@ -33,7 +33,7 @@ export function StatisticsView() {
               className={`px-4 py-1.5 rounded-pill text-[13px] font-medium transition-all ${
                 vm.selectedRange === r.key
                   ? 'bg-primary text-white'
-                  : 'bg-gray-100 text-text-secondary'
+                  : 'bg-[var(--cf-input)] text-text-secondary'
               }`}
             >
               {r.label}

@@ -16,7 +16,7 @@ export function SavingsCard({ goal, daysRemaining, onDelete }: Props) {
   const isCompleted = progress >= 1;
 
   return (
-    <div className="bg-white rounded-card shadow-card p-4 mb-3 relative">
+    <div className="bg-card-bg rounded-card shadow-card p-4 mb-3 relative">
       {isCompleted && <span className="absolute top-3 right-3 text-2xl">🎉</span>}
 
       <div className="flex items-center gap-3 mb-3">
@@ -36,7 +36,7 @@ export function SavingsCard({ goal, daysRemaining, onDelete }: Props) {
       </div>
 
       {/* 进度条 */}
-      <div className="h-1.5 bg-gray-100 rounded-full mb-2 overflow-hidden">
+      <div className="h-1.5 bg-[var(--cf-input)] rounded-full mb-2 overflow-hidden">
         <div className="h-full rounded-full transition-all duration-500"
           style={{ width: `${progress * 100}%`, backgroundColor: goal.colorHex }} />
       </div>

@@ -48,7 +48,7 @@ export function HeatmapView({ data }: Props) {
   if (cells.length === 0) return null;
 
   return (
-    <div className="bg-white rounded-card shadow-card p-4">
+    <div className="bg-card-bg rounded-card shadow-card p-4">
       <h3 className="text-[20px] font-semibold text-text-primary mb-3">支出热力图</h3>
 
       {/* 星期标签 */}

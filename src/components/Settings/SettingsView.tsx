@@ -63,12 +63,12 @@ export function SettingsView({ onNavigate }: Props) {
 
       {showResetAlert && (
         <div className="fixed inset-0 z-50 bg-black/40 flex items-center justify-center animate-fade-in-up">
-          <div className="bg-white rounded-card p-6 mx-8 max-w-sm shadow-elevated">
+          <div className="bg-card-bg rounded-card p-6 mx-8 max-w-sm shadow-elevated">
             <h3 className="text-[18px] font-semibold mb-2">重置所有数据</h3>
             <p className="text-[14px] text-text-secondary mb-4">这将删除所有记录、预算和自定义分类。此操作不可恢复。</p>
             <div className="flex gap-3">
               <button onClick={() => setShowResetAlert(false)}
-                className="flex-1 py-3 rounded-btn bg-gray-100 font-semibold">取消</button>
+                className="flex-1 py-3 rounded-btn bg-[var(--cf-input)] font-semibold">取消</button>
               <button onClick={() => { vm.resetAllData(); setShowResetAlert(false); }}
                 className="flex-1 py-3 rounded-btn bg-expense text-white font-semibold">确认重置</button>
             </div>
@@ -87,7 +87,7 @@ function Section({ title, children }: { title: string; children: React.ReactNode
   return (
     <div className="mb-4 px-5">
       <p className="text-[13px] font-medium text-text-secondary mb-2 ml-1">{title}</p>
-      <div className="bg-white rounded-card shadow-card overflow-hidden">
+      <div className="bg-card-bg rounded-card shadow-card overflow-hidden">
         {children}
       </div>
     </div>
@@ -96,7 +96,7 @@ function Section({ title, children }: { title: string; children: React.ReactNode
 
 function NavRow({ icon: Icon, label, onClick }: { icon: React.ComponentType<{ size?: number; className?: string }>; label: string; onClick: () => void }) {
   return (
-    <button onClick={onClick} className="w-full flex items-center gap-3 px-4 py-3.5 border-b border-gray-50 last:border-0 active:bg-gray-50">
+    <button onClick={onClick} className="w-full flex items-center gap-3 px-4 py-3.5 border-b border-[var(--cf-border)] last:border-0 active:bg-[var(--cf-border)]">
       <Icon size={20} className="text-text-secondary" />
       <span className="flex-1 text-left text-[16px] text-text-primary">{label}</span>
       <ChevronRight size={18} className="text-text-tertiary" />
@@ -106,7 +106,7 @@ function NavRow({ icon: Icon, label, onClick }: { icon: React.ComponentType<{ si
 
 function ActionRow({ icon: Icon, label, onClick, danger }: { icon: React.ComponentType<{ size?: number; className?: string }>; label: string; onClick: () => void; danger?: boolean }) {
   return (
-    <button onClick={onClick} className="w-full flex items-center gap-3 px-4 py-3.5 border-b border-gray-50 last:border-0 active:bg-gray-50">
+    <button onClick={onClick} className="w-full flex items-center gap-3 px-4 py-3.5 border-b border-[var(--cf-border)] last:border-0 active:bg-[var(--cf-border)]">
       <Icon size={20} className={danger ? 'text-expense' : 'text-text-secondary'} />
       <span className={`flex-1 text-left text-[16px] ${danger ? 'text-expense' : 'text-text-primary'}`}>{label}</span>
     </button>
@@ -115,7 +115,7 @@ function ActionRow({ icon: Icon, label, onClick, danger }: { icon: React.Compone
 
 function SelectRow({ icon: Icon, label, value, onClick }: { icon: React.ComponentType<{ size?: number }>; label: string; value: string; onClick: () => void }) {
   return (
-    <button onClick={onClick} className="w-full flex items-center gap-3 px-4 py-3.5 border-b border-gray-50 last:border-0 active:bg-gray-50">
+    <button onClick={onClick} className="w-full flex items-center gap-3 px-4 py-3.5 border-b border-[var(--cf-border)] last:border-0 active:bg-[var(--cf-border)]">
       <Icon size={20} className="text-text-secondary" />
       <span className="flex-1 text-left text-[16px] text-text-primary">{label}</span>
       <span className="text-[14px] text-text-secondary">{value}</span>
@@ -126,7 +126,7 @@ function SelectRow({ icon: Icon, label, value, onClick }: { icon: React.Componen
 
 function EditRow({ icon: Icon, label, value, onSave }: { icon: React.ComponentType<{ size?: number }>; label: string; value: string; onSave: (val: string) => void }) {
   return (
-    <div className="flex items-center gap-3 px-4 py-3.5 border-b border-gray-50 last:border-0">
+    <div className="flex items-center gap-3 px-4 py-3.5 border-b border-[var(--cf-border)] last:border-0">
       <Icon size={20} className="text-text-secondary" />
       <span className="text-[16px] text-text-primary">{label}</span>
       <input type="text" defaultValue={value}
@@ -138,12 +138,12 @@ function EditRow({ icon: Icon, label, value, onSave }: { icon: React.ComponentTy
 
 function ToggleRow({ icon: Icon, label, checked, onChange }: { icon: React.ComponentType<{ size?: number }>; label: string; checked: boolean; onChange: () => void }) {
   return (
-    <div className="flex items-center gap-3 px-4 py-3.5 border-b border-gray-50 last:border-0">
+    <div className="flex items-center gap-3 px-4 py-3.5 border-b border-[var(--cf-border)] last:border-0">
       <Icon size={20} className="text-text-secondary" />
       <span className="flex-1 text-[16px] text-text-primary">{label}</span>
       <button onClick={onChange}
-        className={`w-12 h-7 rounded-full transition-colors relative ${checked ? 'bg-primary' : 'bg-gray-300'}`}>
-        <div className={`absolute top-0.5 w-6 h-6 rounded-full bg-white shadow transition-transform ${checked ? 'translate-x-6' : 'translate-x-0.5'}`} />
+        className={`w-12 h-7 rounded-full transition-colors relative ${checked ? 'bg-primary' : 'bg-gray-400'}`}>
+        <div className={`absolute top-0.5 w-6 h-6 rounded-full bg-card-bg shadow transition-transform ${checked ? 'translate-x-6' : 'translate-x-0.5'}`} />
       </button>
     </div>
   );

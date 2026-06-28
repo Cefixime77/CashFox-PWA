@@ -61,7 +61,7 @@ export function RecordListView() {
             value={vm.searchText}
             onChange={e => vm.setSearchText(e.target.value)}
             autoFocus
-            className="w-full px-4 py-2.5 bg-white rounded-btn text-[16px] border-0 outline-none shadow-card"
+            className="w-full px-4 py-2.5 bg-card-bg rounded-btn text-[16px] border-0 outline-none shadow-card"
           />
         </div>
       )}

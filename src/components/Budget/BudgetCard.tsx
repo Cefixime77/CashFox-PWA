@@ -24,7 +24,7 @@ export function BudgetCard({ budget, spent, percent, category, onDelete }: Props
   const statusText = isOver ? '⚠ 已超出' : isWarning ? '⚠ 即将超出' : '✓ 正常';
 
   return (
-    <div className="bg-white rounded-card shadow-card p-4 mb-3">
+    <div className="bg-card-bg rounded-card shadow-card p-4 mb-3">
       <div className="flex items-center justify-between mb-3">
         <div className="flex items-center gap-3">
           {category ? (
@@ -62,7 +62,7 @@ export function BudgetCard({ budget, spent, percent, category, onDelete }: Props
       </div>
 
       {/* 进度条 */}
-      <div className="h-2 bg-gray-100 rounded-full mb-2 overflow-hidden">
+      <div className="h-2 bg-[var(--cf-input)] rounded-full mb-2 overflow-hidden">
         <div className="h-full rounded-full transition-all duration-500"
           style={{ width: `${Math.min(percent * 100, 100)}%`, backgroundColor: statusColor }} />
       </div>

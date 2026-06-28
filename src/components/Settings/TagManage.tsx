@@ -33,9 +33,9 @@ export function TagManage({ onBack }: Props) {
             <p className="text-[16px] text-text-secondary">还没有标签</p>
           </div>
         ) : (
-          <div className="bg-white rounded-card shadow-card overflow-hidden mb-4">
+          <div className="bg-card-bg rounded-card shadow-card overflow-hidden mb-4">
             {tags.map(tag => (
-              <div key={tag.id} className="flex items-center gap-3 px-4 py-3 border-b border-gray-50 last:border-0">
+              <div key={tag.id} className="flex items-center gap-3 px-4 py-3 border-b border-[var(--cf-border)] last:border-0">
                 <div className="w-4 h-4 rounded-full" style={{ backgroundColor: tag.colorHex }} />
                 <span className="flex-1 text-[16px] text-text-primary">{tag.name}</span>
                 <button onClick={() => deleteTag(tag.id)}><Trash2 size={16} className="text-text-tertiary" /></button>
@@ -45,11 +45,11 @@ export function TagManage({ onBack }: Props) {
         )}
 
         {/* 添加标签 */}
-        <div className="bg-white rounded-card shadow-card p-4">
+        <div className="bg-card-bg rounded-card shadow-card p-4">
           <div className="flex gap-2 mb-3">
             <input type="text" placeholder="新标签名称" value={newName} onChange={e => setNewName(e.target.value)}
               onKeyDown={e => e.key === 'Enter' && handleAdd()}
-              className="flex-1 px-4 py-3 bg-gray-50 rounded-btn text-[16px] outline-none" />
+              className="flex-1 px-4 py-3 bg-[var(--cf-border)] rounded-btn text-[16px] outline-none" />
             <button onClick={handleAdd} disabled={!newName.trim()}
               className="px-5 py-3 bg-primary text-white rounded-btn font-semibold disabled:opacity-50 active:scale-95 transition-transform">
               添加

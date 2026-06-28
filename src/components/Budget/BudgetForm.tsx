@@ -43,14 +43,14 @@ export function BudgetForm({ categories, onSave, onClose }: BudgetFormProps) {
         </div>
         <div className="px-5 pb-8 flex flex-col gap-4">
           <input type="text" placeholder="预算名称（如：每月生活费）" value={name} onChange={e => setName(e.target.value)}
-            className="w-full px-4 py-3 bg-white rounded-btn text-[16px] outline-none shadow-card" />
+            className="w-full px-4 py-3 bg-card-bg rounded-btn text-[16px] outline-none shadow-card" />
 
           <div className="text-center py-2">
             <span className="text-text-secondary mr-1">¥</span>
             <span className="text-[42px] font-bold text-text-primary">{amountString || '0'}</span>
           </div>
 
-          <div className="flex rounded-btn bg-gray-100 p-0.5">
+          <div className="flex rounded-btn bg-[var(--cf-input)] p-0.5">
             {(['weekly', 'monthly', 'yearly'] as BudgetPeriod[]).map(p => (
               <button key={p} onClick={() => setPeriod(p)}
                 className={`flex-1 py-2 text-[14px] rounded-[10px] transition-all ${
@@ -62,7 +62,7 @@ export function BudgetForm({ categories, onSave, onClose }: BudgetFormProps) {
           </div>
 
           <select value={categoryId ?? ''} onChange={e => setCategoryId(e.target.value || undefined)}
-            className="w-full px-4 py-3 bg-white rounded-btn text-[16px] outline-none shadow-card">
+            className="w-full px-4 py-3 bg-card-bg rounded-btn text-[16px] outline-none shadow-card">
             <option value="">全部支出</option>
             {expenseCats.map(c => <option key={c.id} value={c.id}>{c.name}</option>)}
           </select>
@@ -131,20 +131,20 @@ export function SavingsGoalForm({ onSave, onClose }: SavingsGoalFormProps) {
         </div>
         <div className="px-5 pb-8 flex flex-col gap-4">
           <input type="text" placeholder="目标名称（如：旅行基金）" value={name} onChange={e => setName(e.target.value)}
-            className="w-full px-4 py-3 bg-white rounded-btn text-[16px] outline-none shadow-card" />
+            className="w-full px-4 py-3 bg-card-bg rounded-btn text-[16px] outline-none shadow-card" />
           <input type="number" inputMode="decimal" placeholder="目标金额" value={targetStr} onChange={e => setTargetStr(e.target.value)}
-            className="w-full px-4 py-3 bg-white rounded-btn text-[16px] outline-none shadow-card" />
+            className="w-full px-4 py-3 bg-card-bg rounded-btn text-[16px] outline-none shadow-card" />
           <input type="number" inputMode="decimal" placeholder="当前已存（可选）" value={currentStr} onChange={e => setCurrentStr(e.target.value)}
-            className="w-full px-4 py-3 bg-white rounded-btn text-[16px] outline-none shadow-card" />
+            className="w-full px-4 py-3 bg-card-bg rounded-btn text-[16px] outline-none shadow-card" />
 
-          <label className="flex items-center gap-3 px-4 py-3 bg-white rounded-btn shadow-card">
+          <label className="flex items-center gap-3 px-4 py-3 bg-card-bg rounded-btn shadow-card">
             <span className="flex-1 text-[16px]">设置截止日期</span>
             <input type="checkbox" checked={hasDeadline} onChange={e => setHasDeadline(e.target.checked)} className="w-5 h-5 accent-primary" />
           </label>
           {hasDeadline && (
             <input type="date" value={deadline.toISOString().slice(0, 10)}
               onChange={e => setDeadline(new Date(e.target.value))}
-              className="w-full px-4 py-3 bg-white rounded-btn text-[16px] outline-none shadow-card" />
+              className="w-full px-4 py-3 bg-card-bg rounded-btn text-[16px] outline-none shadow-card" />
           )}
 
           <div className="grid grid-cols-5 gap-3">

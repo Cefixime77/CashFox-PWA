@@ -15,7 +15,7 @@ export function SummaryCards({ totalExpense, totalIncome, balance, recordCount }
   return (
     <div className="flex flex-col gap-3">
       {/* 结余主卡片 */}
-      <div className="bg-white rounded-card shadow-card p-5 text-center">
+      <div className="bg-card-bg rounded-card shadow-card p-5 text-center">
         <p className="text-[13px] text-text-secondary mb-1">结余</p>
         <p className={`text-[42px] font-bold ${balance >= 0 ? 'text-income' : 'text-expense'}`}>
           {formatCurrency(balance)}
@@ -34,7 +34,7 @@ export function SummaryCards({ totalExpense, totalIncome, balance, recordCount }
 
 function MiniCard({ title, value, color }: { title: string; value: string; color: string }) {
   return (
-    <div className="bg-white rounded-card shadow-card p-3 text-center">
+    <div className="bg-card-bg rounded-card shadow-card p-3 text-center">
       <p className="text-[13px] text-text-secondary mb-1">{title}</p>
       <p className={`text-[20px] font-semibold ${color}`}>{value}</p>
     </div>

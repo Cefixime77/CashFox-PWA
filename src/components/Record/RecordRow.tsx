@@ -19,7 +19,7 @@ export function RecordRow({ record, category, onClick }: Props) {
   return (
     <div
       onClick={onClick}
-      className="flex items-center gap-3 py-3 px-4 bg-white active:bg-gray-50 transition-colors cursor-pointer rounded-lg mx-2 my-0.5"
+      className="flex items-center gap-3 py-3 px-4 bg-card-bg active:bg-[var(--cf-border)] transition-colors cursor-pointer rounded-lg mx-2 my-0.5"
     >
       <CategoryIcon
         icon={category?.icon ?? 'HelpCircle'}

@@ -88,7 +88,7 @@ export function AddExpenseSheet({ recordId, onClose, onSaved }: Props) {
 
         <div className="px-5 pb-8 flex flex-col gap-4">
           {/* 收支切换 */}
-          <div className="flex rounded-btn bg-gray-100 p-0.5">
+          <div className="flex rounded-btn bg-[var(--cf-input)] p-0.5">
             {(['expense', 'income'] as ExpenseType[]).map(type => (
               <button
                 key={type}
@@ -149,18 +149,18 @@ export function AddExpenseSheet({ recordId, onClose, onSaved }: Props) {
               placeholder="标题（可选）"
               value={vm.title}
               onChange={e => vm.setTitle(e.target.value)}
-              className="w-full px-4 py-3 bg-white rounded-btn text-[16px] border-0 outline-none shadow-card"
+              className="w-full px-4 py-3 bg-card-bg rounded-btn text-[16px] border-0 outline-none shadow-card"
             />
             <input
               type="text"
               placeholder="备注（可选）"
               value={vm.note}
               onChange={e => vm.setNote(e.target.value)}
-              className="w-full px-4 py-3 bg-white rounded-btn text-[16px] border-0 outline-none shadow-card"
+              className="w-full px-4 py-3 bg-card-bg rounded-btn text-[16px] border-0 outline-none shadow-card"
             />
 
             {/* 日期 */}
-            <div className="flex items-center gap-2 px-4 py-3 bg-white rounded-btn shadow-card">
+            <div className="flex items-center gap-2 px-4 py-3 bg-card-bg rounded-btn shadow-card">
               <Calendar size={20} className="text-text-tertiary" />
               <input
                 type="datetime-local"
@@ -171,7 +171,7 @@ export function AddExpenseSheet({ recordId, onClose, onSaved }: Props) {
             </div>
 
             {/* 周期性 */}
-            <label className="flex items-center gap-3 px-4 py-3 bg-white rounded-btn shadow-card">
+            <label className="flex items-center gap-3 px-4 py-3 bg-card-bg rounded-btn shadow-card">
               <span className="flex-1 text-[16px] text-text-primary">周期性重复</span>
               <input
                 type="checkbox"
@@ -181,7 +181,7 @@ export function AddExpenseSheet({ recordId, onClose, onSaved }: Props) {
               />
             </label>
             {vm.isRecurring && (
-              <div className="flex rounded-btn bg-gray-100 p-0.5">
+              <div className="flex rounded-btn bg-[var(--cf-input)] p-0.5">
                 {(['daily', 'weekly', 'monthly', 'yearly'] as const).map(interval => (
                   <button
                     key={interval}
@@ -211,7 +211,7 @@ export function AddExpenseSheet({ recordId, onClose, onSaved }: Props) {
             onClick={handleSave}
             disabled={!vm.isValid}
             className={`w-full py-3.5 text-[16px] font-semibold rounded-btn text-white transition-all
-              ${vm.isValid ? (isExpense ? 'bg-expense' : 'bg-income') + ' active:scale-98' : 'bg-gray-300 cursor-not-allowed'}
+              ${vm.isValid ? (isExpense ? 'bg-expense' : 'bg-income') + ' active:scale-98' : 'bg-gray-400 cursor-not-allowed'}
             `}
           >
             记录

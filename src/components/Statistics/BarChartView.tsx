@@ -17,7 +17,7 @@ export function BarChartView({ breakdown }: Props) {
 
   if (data.every(d => d.amount === 0)) {
     return (
-      <div className="bg-white rounded-card shadow-card p-4">
+      <div className="bg-card-bg rounded-card shadow-card p-4">
         <h3 className="text-[20px] font-semibold text-text-primary mb-3">每日支出</h3>
         <p className="text-text-tertiary text-center py-10">暂无数据</p>
       </div>
@@ -25,7 +25,7 @@ export function BarChartView({ breakdown }: Props) {
   }
 
   return (
-    <div className="bg-white rounded-card shadow-card p-4">
+    <div className="bg-card-bg rounded-card shadow-card p-4">
       <h3 className="text-[20px] font-semibold text-text-primary mb-3">每日支出</h3>
       <div className="h-[180px]">
         <ResponsiveContainer width="100%" height="100%">

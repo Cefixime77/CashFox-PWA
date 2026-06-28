@@ -20,7 +20,7 @@ export function PieChartView({ breakdown }: Props) {
   }));
 
   return (
-    <div className="bg-white rounded-card shadow-card p-4">
+    <div className="bg-card-bg rounded-card shadow-card p-4">
       <h3 className="text-[20px] font-semibold text-text-primary mb-3">支出分类</h3>
 
       {/* 饼图 */}

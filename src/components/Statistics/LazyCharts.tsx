@@ -8,15 +8,15 @@ import type { PieChartView } from './PieChartView';
 import type { BarChartView } from './BarChartView';
 import type { HeatmapView } from './HeatmapView';
 
-const PieChartLazy = lazy(() => import('./PieChartView'));
-const BarChartLazy = lazy(() => import('./BarChartView'));
-const HeatmapLazy = lazy(() => import('./HeatmapView'));
+const PieChartLazy = lazy(() => import('./PieChartView').then(m => ({ default: m.PieChartView })));
+const BarChartLazy = lazy(() => import('./BarChartView').then(m => ({ default: m.BarChartView })));
+const HeatmapLazy = lazy(() => import('./HeatmapView').then(m => ({ default: m.HeatmapView })));
 
 function ChartFallback() {
   return (
-    <div className="bg-white rounded-card shadow-card p-4 animate-pulse">
-      <div className="h-4 w-24 bg-gray-200 rounded mb-3" />
-      <div className="h-[200px] bg-gray-100 rounded" />
+    <div className="bg-card-bg rounded-card shadow-card p-4 animate-pulse">
+      <div className="h-4 w-24 bg-[var(--cf-border)] rounded mb-3" />
+      <div className="h-[200px] bg-[var(--cf-input)] rounded" />
     </div>
   );
 }

@@ -61,7 +61,7 @@ export function ExpenseDetail({ recordId, onClose, onDeleted }: Props) {
 
         <div className="px-5 pb-8 flex flex-col gap-4">
           {/* 金额卡片 */}
-          <div className="flex flex-col items-center py-8 bg-white rounded-card shadow-card gap-3">
+          <div className="flex flex-col items-center py-8 bg-card-bg rounded-card shadow-card gap-3">
             <CategoryIcon
               icon={category?.icon ?? 'HelpCircle'}
               color={category?.colorHex ?? '#A8D8EA'}
@@ -76,7 +76,7 @@ export function ExpenseDetail({ recordId, onClose, onDeleted }: Props) {
           </div>
 
           {/* 详情卡片 */}
-          <div className="bg-white rounded-card shadow-card overflow-hidden">
+          <div className="bg-card-bg rounded-card shadow-card overflow-hidden">
             <DetailRow icon="FileText" label="标题" value={record.title || '无'} />
             <DetailRow icon="Calendar" label="日期"
               value={`${smartDateDisplay(record.date)} ${weekdayDisplay(record.date)} ${timeDisplay(record.date)}`}
@@ -119,7 +119,7 @@ function DetailRow({ icon, label, value }: { icon: string; label: string; value:
   };
 
   return (
-    <div className="flex items-center gap-3 px-4 py-3 border-b border-gray-100 last:border-0">
+    <div className="flex items-center gap-3 px-4 py-3 border-b border-[var(--cf-border)] last:border-0">
       {iconMap[icon] ?? <FileText size={22} className="text-text-tertiary" />}
       <div className="flex flex-col">
         <span className="text-[13px] text-text-secondary">{label}</span>

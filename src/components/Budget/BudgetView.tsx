@@ -37,13 +37,13 @@ export function BudgetView() {
 
       {/* 分段控制器 */}
       <div className="px-5 pb-3">
-        <div className="flex rounded-btn bg-gray-100 p-0.5">
+        <div className="flex rounded-btn bg-[var(--cf-input)] p-0.5">
           {(['budgets', 'goals'] as const).map(t => (
             <button
               key={t}
               onClick={() => setTab(t)}
               className={`flex-1 py-2 text-[16px] font-semibold rounded-[10px] transition-all ${
-                tab === t ? 'bg-white text-text-primary shadow-sm' : 'text-text-secondary'
+                tab === t ? 'bg-card-bg text-text-primary shadow-sm' : 'text-text-secondary'
               }`}
             >
               {{ budgets: '预算', goals: '储蓄目标' }[t]}
