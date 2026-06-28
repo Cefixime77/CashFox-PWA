@@ -1,38 +1,77 @@
 // ============================================
 // CashFox PWA — App 入口
 // ============================================
-import { useEffect } from 'react';
+import { useEffect, Component, type ReactNode } from 'react';
 import { AppProvider, useAppContext } from './contexts/AppContext';
 import { OnboardingView } from './components/Layout/OnboardingView';
 import { MainTabView } from './components/Layout/MainTabView';
 
+// ============================================
+// 错误边界 — 捕获渲染崩溃，避免永久白屏
+// ============================================
+class ErrorBoundary extends Component<{ children: ReactNode }, { err: Error | null }> {
+  state = { err: null as Error | null };
+  static getDerivedStateFromError(err: Error) { return { err }; }
+  render() {
+    if (this.state.err) {
+      return (
+        <div style={{
+          height: '100dvh', display: 'flex', flexDirection: 'column',
+          alignItems: 'center', justifyContent: 'center',
+          background: '#F5F9FC', padding: 32, fontFamily: 'system-ui'
+        }}>
+          <div style={{ fontSize: 64, marginBottom: 16 }}>🦊</div>
+          <p style={{ fontSize: 16, fontWeight: 600, color: '#2C3E50', marginBottom: 8 }}>
+            出了点小问题
+          </p>
+          <p style={{ fontSize: 13, color: '#7F8C8D', textAlign: 'center', wordBreak: 'break-all' }}>
+            {this.state.err.message}
+          </p>
+          <button
+            onClick={() => { this.setState({ err: null }); window.location.reload(); }}
+            style={{
+              marginTop: 20, padding: '12px 32px', background: '#7EC8E3', color: '#fff',
+              border: 'none', borderRadius: 12, fontSize: 16, fontWeight: 600, cursor: 'pointer'
+            }}
+          >
+            重新加载
+          </button>
+        </div>
+      );
+    }
+    return this.props.children;
+  }
+}
+
+// ============================================
+// 应用内容
+// ============================================
 function AppContent() {
   const { ready, preference } = useAppContext();
 
-  // ⚡ 应用完全就绪后关闭 HTML 加载屏
-  //    关键：只在 ready=true 且内容渲染后才隐藏
-  //    这样中间不存在任何空白间隙
+  // 应用完全就绪后，等浏览器绘制一帧再隐藏加载屏
   useEffect(() => {
     if (ready) {
-      // 延迟一帧确保 DOM 已经渲染
+      // 双重 requestAnimationFrame = 等待浏览器完成绘制
       requestAnimationFrame(() => {
-        const fn = (window as unknown as Record<string, (() => void) | undefined>).__cashfoxReady;
-        if (fn) fn();
+        requestAnimationFrame(() => {
+          // 再加 100ms 保险，确保内容已上屏
+          setTimeout(() => {
+            const fn = (window as any).__cashfoxReady;
+            if (fn) fn();
+          }, 100);
+        });
       });
     }
   }, [ready]);
 
-  // 数据库未初始化 → React 内部加载状态（用户看不到，因为 HTML 加载屏还在）
-  if (!ready) {
-    return null;
-  }
+  if (!ready) return null;
 
-  // 引导页 / 主页
-  if (!preference?.hasCompletedOnboarding) {
-    return <OnboardingView />;
-  }
-
-  return <MainTabView />;
+  return (
+    <ErrorBoundary>
+      {!preference?.hasCompletedOnboarding ? <OnboardingView /> : <MainTabView />}
+    </ErrorBoundary>
+  );
 }
 
 export default function App() {
