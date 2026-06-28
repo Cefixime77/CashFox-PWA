@@ -4,6 +4,8 @@ import tailwindcss from '@tailwindcss/vite'
 import { VitePWA } from 'vite-plugin-pwa'
 
 export default defineConfig({
+  // GitHub Pages 部署在子路径下，所有资源需要加此前缀
+  base: '/CashFox-PWA/',
   plugins: [
     react(),
     tailwindcss(),
@@ -20,8 +22,8 @@ export default defineConfig({
         background_color: '#F5F9FC',
         display: 'standalone',
         orientation: 'portrait',
-        start_url: '/',
-        scope: '/',
+        start_url: '/CashFox-PWA/',
+        scope: '/CashFox-PWA/',
         icons: [
           { src: 'icons/icon-192.png', sizes: '192x192', type: 'image/png' },
           { src: 'icons/icon-512.png', sizes: '512x512', type: 'image/png' },
